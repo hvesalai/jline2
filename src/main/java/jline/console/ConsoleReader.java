@@ -350,7 +350,7 @@ public class ConsoleReader implements Closeable
     public void shutdown() {
         this.close();
     }
-    
+
     /**
      * Shuts down the ConsoleReader if the JVM attempts to clean it up.
      */
@@ -1257,7 +1257,7 @@ public class ConsoleReader implements Closeable
      * @param startPos The start position
      * @param endPos The end position.
      * @param isChange If true, then the delete is part of a change operationg
-     *    (e.g. "c$" is change-to-end-of line, so we first must delete to end 
+     *    (e.g. "c$" is change-to-end-of line, so we first must delete to end
      *    of line to start the change
      * @return true if it succeeded, false otherwise
      */
@@ -1276,7 +1276,7 @@ public class ConsoleReader implements Closeable
         buf.cursor = startPos;
         buf.buffer.delete(startPos, endPos);
         drawBuffer(endPos - startPos);
-        
+
         // If we are doing a delete operation (e.g. "d$") then don't leave the
         // cursor dangling off the end. In reality the "isChange" flag is silly
         // what is really happening is that if we are in "move-mode" then the
@@ -3092,7 +3092,7 @@ public class ConsoleReader implements Closeable
                                     state = State.VI_CHANGE_TO;
                                 }
                                 break;
-                            
+
                             case VI_KILL_WHOLE_LINE:
                                 success = setCursorPosition(0) && killLine();
                                 consoleKeys.setKeyMap(KeyMap.VI_INSERT);
@@ -3124,11 +3124,11 @@ public class ConsoleReader implements Closeable
                                         ? readCharacter()
                                         : pushBackChar.pop());
                                 break;
-                            
+
                             case VI_DELETE_TO_EOL:
                                 success = viDeleteTo(buf.cursor, buf.buffer.length(), false);
                                 break;
-                                
+
                             case VI_CHANGE_TO_EOL:
                                 success = viDeleteTo(buf.cursor, buf.buffer.length(), true);
                                 consoleKeys.setKeyMap(KeyMap.VI_INSERT);
@@ -3235,9 +3235,7 @@ public class ConsoleReader implements Closeable
 
             if (i == -1 && buf.buffer.length() == 0) {
               return null;
-            }
-
-            if (i == -1 || i == '\n') {
+            } else if (i == -1 || i == '\n') {
                 return finishBuffer();
             } else if (i == '\r') {
                 skipLF = true;
